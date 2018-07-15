@@ -45,7 +45,6 @@ public class HelloElastic {
 
         get("/readme", (req, res) -> readme());
 
-
         get("/create/:interval/:how_many", (request, response) -> make_data(request.params("interval"), request.params("how_many")));
 
         get("/bulk/:interval/:how_many", (request, response) -> bulk(request.params("interval"), request.params("how_many")));
@@ -139,72 +138,11 @@ public class HelloElastic {
 
 
 
-//    public static String get_cars(String numbers) throws Exception {
-//
-//
-//
-//        StringBuilder sb = new StringBuilder();
-//        String index_name = "cars";
-//        String type_name = "type1";
-//
-//        int number = Integer.parseInt(numbers);
-//        ObjectMapper mapper = new ObjectMapper();
-//        List<Car> list = new ArrayList<>();
-//
-//       for (int i = 1; i <= number; i++)
-//       {
-//
-//            list.add(new Car(2018, "toyota", 99));
-//
-//       }
-//
-//       int i = 1;
-//        for (Car s : list) {
-//            String header = "{\"index\":{\"_index\":\"" + index_name +  "\",\"_type\":\"" + type_name  + "\",\"_id\":" + i +"}} " + "\n";
-//            sb.append(header);
-//            String json = mapper.writeValueAsString(s);
-////            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(s);
-//            sb.append(json + "\n");
-//            i++;
-//        }
-//
-//
-//
-//        Map<String, Object> jsonMap = new HashMap<>();
-//        jsonMap.put("user", "kimchy");
-//        jsonMap.put("postDate", new Date());
-//        jsonMap.put("message", "trying out Elasticsearch");
-//        sb.append(jsonMap.toString());
-//
-//        String jsonInString = mapper.writeValueAsString(list);
-////        System.out.println(jsonInString);
-//        System.out.println(sb.toString());
-//
-//        String home = System.getProperty("user.home");
-//        File fileName = new File(home+"/Downloads/" + "data" + ".json");
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-//        writer.write(sb.toString());
-//
-//        writer.close();
-//
-//
-//        StringBuilder response = new StringBuilder();
-//        response.append("data.json is saved : " + fileName.toString() + "<br>");
-//        response.append("<br>");
-//        response.append("you can invoke bulk as below<br>");
-//        response.append("curl  -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary @" + fileName.toString());
-//        return response.toString();
-//
-//
-//    }
-
-
     public static String bulk(String internal, String numbers) throws Exception {
 
 
         Header header = new BasicHeader("a", "a");
 
-        String index_name = "aaa";
 
         try {
             BulkRequest bulkRequest = new BulkRequest();
