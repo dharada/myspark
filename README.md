@@ -19,9 +19,9 @@ Just hit `http://localhost:4567/<action>/<interval>/<counts>`
 
 It takes only 3 parameters
 
-1. action -  `create` or `bulk`
+**1. action -  `create` or `bulk`**
 
-2. interval - interval you want.
+**2. interval - interval you want.**
 
 
 * s : secondly
@@ -30,7 +30,7 @@ It takes only 3 parameters
 * d : daily
 
 
-3. count - how many doc you want. 
+**3. count - how many doc you want.**
 
 #### Basic Usage Examples
 
