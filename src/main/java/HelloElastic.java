@@ -15,7 +15,6 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
 
 import java.awt.*;
 import java.io.*;
@@ -51,14 +50,14 @@ public class HelloElastic {
 
         get("/readme", (req, res) -> readme());
 
-        get("/create/:interval/:how_many", (request, response) -> make_data(request.params("interval"), request.params("how_many")));
+        get("/create/:interval/:how_many", (request, response) -> create(request.params("interval"), request.params("how_many")));
 
         get("/bulk/:interval/:how_many", (request, response) -> bulk(request.params("interval"), request.params("how_many")));
 
     }
 
 
-    public static String make_data(String interval, String numbers) throws Exception {
+    public static String create(String interval, String numbers) throws Exception {
 
         StringBuilder sb = new StringBuilder();
 
@@ -174,7 +173,7 @@ public class HelloElastic {
                 i++;
 
             }
-            
+
 
             BulkResponse bulkResponse = client.bulk(bulkRequest, header);
 
@@ -185,13 +184,8 @@ public class HelloElastic {
                 if (bulkItemResponse.getOpType() == DocWriteRequest.OpType.INDEX
                         || bulkItemResponse.getOpType() == DocWriteRequest.OpType.CREATE) {
                     IndexResponse indexResponse = (IndexResponse) itemResponse;
-
-                } else if (bulkItemResponse.getOpType() == DocWriteRequest.OpType.UPDATE) {
-                    UpdateResponse updateResponse = (UpdateResponse) itemResponse;
-
-                } else if (bulkItemResponse.getOpType() == DocWriteRequest.OpType.DELETE) {
-                    DeleteResponse deleteResponse = (DeleteResponse) itemResponse;
                 }
+
             }
 
 
