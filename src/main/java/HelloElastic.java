@@ -21,6 +21,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 import static spark.Spark.get;
@@ -32,12 +33,17 @@ public class HelloElastic {
     static final String type_name = "data";
 
 
+
     static final RestHighLevelClient client = new RestHighLevelClient(
             RestClient.builder(
                     new HttpHost("localhost", 9200, "http"),
                     new HttpHost("localhost", 9201, "http")));
 
+
+
     public static void main(String[] args) throws Exception {
+
+
 
 
         Desktop desktop = Desktop.getDesktop();
@@ -56,10 +62,64 @@ public class HelloElastic {
 
         StringBuilder sb = new StringBuilder();
 
-
-        int number = Integer.parseInt(numbers);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+
+        List<Hotel> list = HelloElastic.getHotels(interval, numbers);
+
+
+        int i = 1;
+        for (Hotel hotel : list) {
+            String header = "{\"index\":{\"_index\":\"" + index_name +  "\",\"_type\":\"" + type_name  + "\",\"_id\":" + i +"}} " + "\n";
+            sb.append(header);
+            String json = mapper.writeValueAsString(hotel);
+            sb.append(json + "\n");
+            i++;
+        }
+
+
+        String home = System.getProperty("user.home");
+        File fileName = new File(home+"/Downloads/" + "data" + ".json");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        writer.write(sb.toString());
+
+        writer.close();
+
+        StringBuilder response = new StringBuilder();
+        response.append("data.json is saved : " + fileName.toString() + "<br>");
+        response.append("<br>");
+        response.append("you can invoke bulk as below<br>");
+        response.append("curl  -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary @" + fileName.toString());
+        return response.toString();
+
+    }
+
+
+    public static String readme() throws Exception {
+        StringBuilder sb = new StringBuilder();
+        String resource_path = "/readme.txt";
+        InputStream in = HelloElastic.class.getResourceAsStream(resource_path);
+        if ( in == null )
+            throw new Exception("resource not found: " + resource_path);
+
+        Reader reader = new InputStreamReader(in, "utf-8");
+
+        BufferedReader bufferedReader = new BufferedReader(reader);
+
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(escapeHtml4(line ) + "<br>");
+        }
+
+        return sb.toString();
+    }
+
+
+    private static List<Hotel> getHotels(String interval, String numbers) {
+        int number = Integer.parseInt(numbers);
+
 
         Helper.INTERVAL inter = null;
         switch(interval) {
@@ -84,81 +144,37 @@ public class HelloElastic {
         }
 
         List<Hotel> list = Hotel.make_hotels(number, inter);
-
-
-        int i = 1;
-        for (Hotel hotel : list) {
-            String header = "{\"index\":{\"_index\":\"" + index_name +  "\",\"_type\":\"" + type_name  + "\",\"_id\":" + i +"}} " + "\n";
-            sb.append(header);
-            String json = mapper.writeValueAsString(hotel);
-            sb.append(json + "\n");
-            i++;
-        }
-
-
-        String home = System.getProperty("user.home");
-        File fileName = new File(home+"/Downloads/" + "data" + ".json");
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-        writer.write(sb.toString());
-
-        writer.close();
-
-
-        StringBuilder response = new StringBuilder();
-        response.append("data.json is saved : " + fileName.toString() + "<br>");
-        response.append("<br>");
-        response.append("you can invoke bulk as below<br>");
-        response.append("curl  -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary @" + fileName.toString());
-        return response.toString();
-
+        return list;
 
     }
 
-
-
-    public static String readme() throws Exception {
-        StringBuilder sb = new StringBuilder();
-        String resource_path = "/readme.txt";
-        InputStream in = HelloElastic.class.getResourceAsStream(resource_path);
-        if ( in == null )
-            throw new Exception("resource not found: " + resource_path);
-
-        Reader reader = new InputStreamReader(in, "utf-8");
-
-        BufferedReader bufferedReader = new BufferedReader(reader);
-
-
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            sb.append(escapeHtml4(line ) + "<br>");
-        }
-
-        return sb.toString();
-    }
-
-
-
-    public static String bulk(String internal, String numbers) throws Exception {
+    public static String bulk(String interval, String numbers) throws Exception {
 
 
         Header header = new BasicHeader("a", "a");
 
 
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+
+        int i = 1;
+        List<Hotel> list = HelloElastic.getHotels(interval, numbers);
+
         try {
             BulkRequest bulkRequest = new BulkRequest();
-            for (int i = 1; i <= 30; i++) {
+            for (Hotel hotel : list) {
+                Map<String, Object> map = mapper.convertValue(hotel, Map.class);
 
                 String id_str = Integer.toString(i);
-                IndexRequest request = new IndexRequest("post", "doc", id_str)
-                        .source(XContentType.JSON, "title",
-                                "The Future of Search")
-                        .source(XContentType.JSON, "name",
-                                "Haru" + id_str);
+                IndexRequest request = new IndexRequest(index_name, type_name, id_str)
+                        .source(map);
 
                 bulkRequest.add(request);
-
+                i++;
 
             }
+            
 
             BulkResponse bulkResponse = client.bulk(bulkRequest, header);
 
@@ -183,7 +199,6 @@ public class HelloElastic {
         {
             return "error";
         }
-
 
         return "done";
     }
