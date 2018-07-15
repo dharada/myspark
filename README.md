@@ -15,9 +15,13 @@ Then you can start it simply by doubleclicking the jar or `java -jar myspark.jar
 
 ## Usage - Simplest Case
 
-It takes only 2 parameters
+Just hit `http://localhost:4567/<action>/<interval>/<counts>`
 
-<interval> - interval you want.
+It takes only 3 parameters
+
+<action> : `create` or `bulk`
+
+<interval> : interval you want.
 
 
 * s : secondly
@@ -26,7 +30,7 @@ It takes only 2 parameters
 * d : daily
 
 
-<counts> - how many doc you want. 
+<counts> : how many doc you want. 
 
 #### Basic Usage Examples
 
