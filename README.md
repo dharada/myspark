@@ -20,10 +20,10 @@ It takes only 2 parameters
 <interval> - interval you want.
 
 
-s : secondly
-m : minutely
-h : hourly
-d : daily
+* s : secondly
+* m : minutely
+* h : hourly
+* d : daily
 
 
 <counts> - how many doc you want. 
@@ -31,18 +31,19 @@ d : daily
 #### Basic Usage Examples
 
 `http://localhost:4567/create/m/5000`
-- this api will create a bulkable json file with 5000 documents.
+* this api will create a bulkable json file with 5000 documents.
 
 
 
 `http://localhost:4567/bulk/d/3600`
 
-- this api will send documents straight to your elasticsearch.
+* his api will send documents straight to your elasticsearch.
 
 This only works if you have disabled security in your elasticsearch.yml though.
 xpack.security.enabled: false
 
-- You can also consume them from curl if you like.
+* You can also consume them from curl if you like.
+
 `curl http://localhost:4567/bulk/h/10`
 
 
