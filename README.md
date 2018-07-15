@@ -2,8 +2,10 @@
 
 This tool creats a json file that you can use for bulk inserts to your local elasitcsearch.
 
-You can start it simply by doubleclicking the jar or `java -jar myspark.jar` from your terminal.
-[https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar](https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar)
+You can download this [jar](https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar).
+
+Then You can start it simply by doubleclicking the jar or `java -jar myspark.jar` from your terminal.
+
 Then your browser will open `http://localhost:4567/readme`.
 
 Then you can follow instruction on the UI or just consume the REST as below.
