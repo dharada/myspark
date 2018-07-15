@@ -4,7 +4,7 @@ This tool creats a json file that you can use for bulk inserts to your local ela
 
 You can download this [jar](https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar).
 
-Then You can start it simply by doubleclicking the jar or `java -jar myspark.jar` from your terminal.
+Then you can start it simply by doubleclicking the jar or `java -jar myspark.jar` from your terminal.
 
 Then your browser will open `http://localhost:4567/readme`.
 
