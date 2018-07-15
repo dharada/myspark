@@ -10,7 +10,7 @@ The data is comprised of mocked hotels.
 
 ## Installation
 
-You can download this [jar](https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar).
+You can download this [jar](https://github.com/TomonoriSoejima/myspark/blob/master/myspark.jar.zip).
 Then you can start it simply by doubleclicking the jar or `java -jar myspark.jar` from your terminal.
 
 ## Usage - Simplest Case
