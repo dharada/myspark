@@ -40,7 +40,7 @@ It takes only 2 parameters
 * his api will send documents straight to your elasticsearch.
 
 This only works if you have disabled security in your elasticsearch.yml though.
-xpack.security.enabled: false
+`xpack.security.enabled: false`
 
 * You can also consume them from curl if you like.
 
