@@ -41,7 +41,7 @@ It takes only 3 parameters
 
 `http://localhost:4567/bulk/d/3600`
 
-* his api will send documents straight to your elasticsearch.
+* this api will send documents straight to your elasticsearch.
 
 This only works if you have disabled security in your elasticsearch.yml though.
 `xpack.security.enabled: false`
