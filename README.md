@@ -6,7 +6,7 @@ The data is comprised of mocked hotels.
 
 
 ## Run Requirements
-* JDK - Oracle or OpenJDK, 1.10
+* JDK - Oracle or OpenJDK, 1.8.0 or higher.
 
 ## Installation
 
