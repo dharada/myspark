@@ -60,7 +60,7 @@ class Hotel{
             Date created = new Date(seconds*1000L);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'");
-            var created_string = dateFormat.format(created);
+            String created_string = dateFormat.format(created);
 
 
             String has_parking = i % 2 == 0 ? "yes" : "no";

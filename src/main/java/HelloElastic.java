@@ -137,7 +137,6 @@ public class HelloElastic {
             case "d" :
                 inter = Helper.INTERVAL.DAILY;
                 break;
-            // You can have any number of case statements.
             default : // Optional
                 inter = Helper.INTERVAL.SECONDLY;
         }
