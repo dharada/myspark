@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by surfer on 2017/07/09.
  */
-public  class RandomData {
+public class RandomData {
 
     public enum FoodMenu {
         Sushi, Pizza, Ramen, Tonkatsu, Yakiniku, Pasta,

@@ -36,7 +36,9 @@ public class HelloElastic {
     static final RestHighLevelClient client = new RestHighLevelClient(
             RestClient.builder(
                     new HttpHost("localhost", 9200, "http"),
-                    new HttpHost("localhost", 9201, "http")));
+                    new HttpHost("localhost", 9201, "http"),
+                    new HttpHost("localhost", 9202, "http"),
+                    new HttpHost("localhost", 9203, "http")));
 
 
 

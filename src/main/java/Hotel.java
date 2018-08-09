@@ -6,7 +6,7 @@ class Hotel{
     int price;
     int capacity;
     String hotel_name;
-    String gruop;
+    String group;
     String country;
     String city;
     String busy_month;
@@ -28,7 +28,7 @@ class Hotel{
         this.price = price;
         this.capacity = capacity;
         this.hotel_name = hotel_name;
-        this.gruop = group;
+        this.group = group;
         this.country = country;
         this.city = city;
         this.busy_month = busy_month;
@@ -59,7 +59,7 @@ class Hotel{
             seconds = Helper.setTimeOffset(seconds, interval);
             Date created = new Date(seconds*1000L);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             String created_string = dateFormat.format(created);
 
 

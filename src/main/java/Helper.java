@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public  class Helper {
+public class Helper {
 
     public enum INTERVAL {
         SECONDLY, MINUTELY, HOURLY, DAILY
