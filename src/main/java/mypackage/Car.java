@@ -1,3 +1,5 @@
+package mypackage;
+
 class Car{
     int year;
     String make;

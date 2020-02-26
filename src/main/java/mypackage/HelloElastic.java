@@ -1,3 +1,5 @@
+package mypackage;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,14 +23,14 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
-import static spark.Spark.get;
+
+import spark.Spark;
+
 
 public class HelloElastic {
 
-
     static final String index_name = "hotel";
     static final String type_name = "data";
-
 
     static final RestHighLevelClient client = new RestHighLevelClient(
             RestClient.builder(
@@ -43,9 +45,9 @@ public class HelloElastic {
         java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
         desktop.browse(new URL("http://localhost:4567/readme").toURI());
 
-        get("/readme", (req, res) -> readme());
-        get("/create/:interval/:how_many", (request, response) -> create(request.params("interval"), request.params("how_many")));
-        get("/bulk/:interval/:how_many", (request, response) -> bulk(request.params("interval"), request.params("how_many")));
+        Spark.get("/readme", (req, res) -> readme());
+        Spark.get("/create/:interval/:how_many", (request, response) -> create(request.params("interval"), request.params("how_many")));
+        Spark.get("/bulk/:interval/:how_many", (request, response) -> bulk(request.params("interval"), request.params("how_many")));
 
     }
 
@@ -170,7 +172,6 @@ public class HelloElastic {
                     IndexResponse indexResponse = (IndexResponse) itemResponse;
                 }
             }
-
 
 
             return "done";
